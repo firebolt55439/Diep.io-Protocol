@@ -24,16 +24,16 @@ injectScript("("+(function() {
 			// WASD = 2 4 8 16 (3 5 9 17 w/ bullet)
 			// 6 18
 			// 12 24
-			/*
 			// All packets that do upgrades are of size 2, however the server checks to
 			// make sure that you have the necessary "points" to upgrade.
 			if(data.length == 2){
 				// This will re-send the upgrade packet 3 times, but the server
 				// is smart and double-checks if you have enough points.
-				console.log("Attempting to apply update 3 times.");
-				for(var i = 0; i < 3; i++) proxiedSend.call(this, data);
+				//console.log("Attempting to apply update 3 times.");
+				//for(var i = 0; i < 3; i++) proxiedSend.call(this, data);
+				console.log("Update packet detected:");
+				console.log(data);
 			}
-			*/
 			if(data[data.length - 1] > 0 && data.length > 5){
 				var last = data[data.length - 1];
 				var bulletOpcodes = [1, 3, 5, 7, 9, 13, 17, 19, 25];
@@ -90,8 +90,9 @@ injectScript("("+(function() {
 			//console.log(Object.prototype.toString.call(data)); // uncomment to dump type of packet (most likely Int8Array)
 			*/
 		}
+		return data;
 	}
-	function handleRecvData(data, proxiedRecv) {
+	function handleRecvData(event, proxiedRecv) {
 		// This function is called whenever the server sends data to the client.
 		// I have not had much luck deciphering server --> client communication due
 		// to extensive obfuscation of the client JS code for handling data
@@ -113,6 +114,7 @@ injectScript("("+(function() {
 			//console.log(String.fromCharCode.apply(null, new Uint8Array(event.data)));
 			*/
 		}
+		return event;
 	}
 	// Locate websocket classes.
 	console.log("WS:");
@@ -133,12 +135,12 @@ injectScript("("+(function() {
 			var inst = this;
 			var proxiedRecv = inst.onmessage;
 			this.onmessage = function(event) {
-				handleRecvData.call(this, event.data, proxiedRecv);
+				event = handleRecvData.call(this, event, proxiedRecv);
 				return proxiedRecv.call(this, event);
 			};
 			console.log("Successfully hijacked onmessage handler.");
 		}
-		handleSendData.call(this, data);
+		data = handleSendData.call(this, data);
 		return proxiedSend.call(this, data);
 	};
 
