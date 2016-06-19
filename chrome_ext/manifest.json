@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Diep.io Packet Interceptor",
+  "description": "Snoop on diep.io internals and communcation.",
+  "version": "0.1",
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "*://diep.io/*"
+  ],
+  "content_scripts": [{
+  	"matches": ["*://diep.io/*"],
+  	"js": ["modifier.js"],
+  	"run_at": "document_start"
+  }],
+  "web_accessible_resources": [
+    //
+  ]
+}
