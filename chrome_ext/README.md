@@ -11,4 +11,4 @@ Unpacked Extension", then navigate to this directory (you will need to clone thi
 project first).
 
 # How To Use
-_Instructions on usage and more information are available on the wiki page titled "Chrome Extension"._
+_Instructions on usage and more are available on the wiki page titled "Chrome Extension"._
