@@ -25,14 +25,26 @@ injectScript("("+(function() {
 		12:"Sniper",
 		14:"Machine Gun",
 		16:"Flank Guard",
-		22:"Overseer",
+		
+		// Twin
+		
+		// Flank Guard
 		18:"Tri-Angle",
+		
+		// Machine Gun
 		20:"Destroyer",
 		50:"Hybrid",
 		40:"Gunner",
+		
+		// Sniper
+		22:"Overseer",
 		38:"Hunter",
 		30:"Assassin",
-		24:"Overlord"
+		24:"Overlord",
+		34:"Necromancer",
+		42:"Stalker",
+		44:"Ranger",
+		52:"Manager"
 	};
 	function handleSendData(data) {
 		// This function is called whenever a packet is sent from the client
