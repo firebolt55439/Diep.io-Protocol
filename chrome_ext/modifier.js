@@ -3,7 +3,7 @@ function injectScript(source){
     var elem = document.createElement("script");
     elem.type = "text/javascript";
     elem.innerHTML = source;
-    
+
     // Inject it into the DOM.
     document.documentElement.appendChild(elem);
 }
@@ -72,6 +72,9 @@ injectScript("("+(function() {
 					else if(last == 18) str = "NE";
 					else if(last == 24) str = "SE";
 					console.log("Diagonal Movement Direction: " + str);
+                } else if(last == 21){
+                    //death
+                    console.log("Death");
 				} else if(last > 1){
 					console.log("Unknown opcode with last number: " + last);
 					//data[data.length - 1] = 0;
@@ -132,9 +135,9 @@ injectScript("("+(function() {
 	console.log("WS:");
 	console.log(window.WebSocket.prototype);
 	//console.log(m.sockets);
-	
+
 	// Snoop on outgoing websocket traffic.
-	
+
 	var wsInstances = new Set();
 	window.WebSocket.prototype.send = function(data) {
 		// Note: Data is given as an Int8Array JS object.
@@ -142,7 +145,7 @@ injectScript("("+(function() {
 			console.log("New WebSocket Used:");
 			console.log(this);
 			wsInstances.add(this);
-			
+
 			// Snoop on incoming websocket traffic.
 			var inst = this;
 			var proxiedRecv = inst.onmessage;
@@ -156,5 +159,5 @@ injectScript("("+(function() {
 		return proxiedSend.call(this, data);
 	};
 
-	
+
 }).toString()+")(" + JSON.stringify([/*arguments*/]) + ")");
