@@ -39,7 +39,9 @@ Remember to navigate to `chrome://extensions` and click "Reload" after any chang
 
 # How To Contribute
 **If you discover anything interesting or have anything you can contribute, please consider
-adding it to the wiki!** A pull request will allow you to make changes to code or wiki pages.
+adding it to the wiki!** 
+
+A fork or clone, then a pull request will allow you to contribute changes to code or wiki pages.
 
 # Contributors
 **Project Lead**: firebolt55439
