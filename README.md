@@ -19,6 +19,6 @@ information.
 adding it to the wiki!** A pull request will allow you to make changes to code or wiki pages.
 
 # Contributors
-Lead Developer: firebolt55439
+**Project Lead**: firebolt55439
 
-Major Contributor(s): hxxr
+**Major Contributor(s)**: hxxr
