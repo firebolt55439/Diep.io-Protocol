@@ -21,7 +21,21 @@ directory and enable the extension. If you modify any of the code, go to `chrome
 and click "Reload".
 
 # Using the Extension
-_Instructions on extension usage are available in the wiki, on the page titled "Chrome Extension"._
+The file "modifier.js" contains a framework for handling communications to/from
+the server. 
+
+To intercept packets sent by the client, modify the function `handleSendData(data)`. If you
+would like to modify the packet sent to the server, simply modify `data`, which is then
+returned by the function and sent to the server.
+
+Similarly, to intercept/modify packets sent by the server, use the function `handleRecvData(event, proxiedRecv)`.
+
+The `event` variable is simply the Javascript WebSocket event; to access the data, use `event.data`. 
+For altering the data, all you have to do is modify `event.data`. 
+
+If you would like to send the client custom packets or such in order to observe the client's response, etc., use `proxiedRecv.call(this, customEvent)`.
+
+Remember to navigate to `chrome://extensions` and click "Reload" after any changes to the code!
 
 # How To Contribute
 **If you discover anything interesting or have anything you can contribute, please consider
