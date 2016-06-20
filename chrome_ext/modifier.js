@@ -20,6 +20,18 @@ injectScript("("+(function() {
 		"Reload",
 		"Movement Speed"
 	];
+	var tankParams = {
+		2:"Twin",
+		12:"Sniper",
+		14:"Machine Gun",
+		16:"Flank Guard",
+		22:"Overseer",
+		18:"Tri-Angle",
+		20:"Destroyer",
+		50:"Hybrid",
+		40:"Gunner",
+		38:"Hunter",
+	};
 	function handleSendData(data) {
 		// This function is called whenever a packet is sent from the client
 		// to the server.
@@ -36,13 +48,19 @@ injectScript("("+(function() {
 			// 12 24
 			// All packets that do upgrades are of size 2, however the server checks to
 			// make sure that you have the necessary "points" to upgrade.
-			if(data.length == 2){
+			if(data.length == 2 && data[0] == 3){
 				// This will re-send the upgrade packet 3 times, but the server
 				// is smart and double-checks if you have enough points.
 				//console.log("Attempting to apply update 3 times.");
 				//for(var i = 0; i < 3; i++) proxiedSend.call(this, data);
 				var param = upgradeParams[(14 - data[1]) / 2];
 				console.log("Detected '" + param + "' parameter upgrade with packet:");
+				console.log(data);
+			}
+			if(data.length == 2 && data[0] == 4){
+				//Tank upgrades (sniper, twin, etc...)
+				var param = tankParams[data[1]];
+				console.log("Detected '" + param + "' parameter tank upgrade with packet:")
 				console.log(data);
 			}
 			if(data[data.length - 1] > 0 && data.length > 5){
