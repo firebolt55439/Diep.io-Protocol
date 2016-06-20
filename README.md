@@ -20,6 +20,9 @@ go to `chrome://extensions` and click "Load Unpacked Extension". Then, navigate 
 directory and enable the extension. If you modify any of the code, go to `chrome://extensions` 
 and click "Reload".
 
+# Using the Extension
+_Instructions on extension usage are available in the wiki, on the page titled "Chrome Extension"._
+
 # How To Contribute
 **If you discover anything interesting or have anything you can contribute, please consider
 adding it to the wiki!** A pull request will allow you to make changes to code or wiki pages.
