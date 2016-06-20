@@ -41,7 +41,7 @@ Remember to navigate to `chrome://extensions` and click "Reload" after any chang
 **If you discover anything interesting or have anything you can contribute, please consider
 adding it to the wiki!** 
 
-A fork or clone, then a pull request will allow you to contribute changes to code or wiki pages.
+Forking this project and submitting a pull request will allow you to contribute changes to code or wiki pages.
 
 # Contributors
 **Project Lead**: firebolt55439
