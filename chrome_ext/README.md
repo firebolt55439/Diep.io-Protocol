@@ -6,9 +6,9 @@ most likely node.js or C/C++).
 All packets/protocol information so far has been discovered by using this extension.
 
 # Set-Up Instructions
-To set up this extension and modify it, go to chrome://extensions and click "Load
-Unpacked Extension", then navigate to this directory (you will need to clone this
-project first).
+To set up this extension, first clone this project and save it on your computer. Next, go 
+to `chrome://extensions` and click "Load Unpacked Extension". Then, navigate to its directory 
+and enable the extension. If you modify any of the code, go to `chrome://extensions` and click "Reload".
 
 # How To Use
 _Instructions on usage and more are available on the wiki page titled "Chrome Extension"._

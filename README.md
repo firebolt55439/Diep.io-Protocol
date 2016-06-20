@@ -14,6 +14,12 @@ the game packets yourself. The extension is stored in the `chrome_ext` directory
 a `README` is included in that directory. There's even a wiki page if you want more
 information.
 
+# Installing the Extension
+To set up the provided extension, first clone this project and save it on your computer. Next, 
+go to `chrome://extensions` and click "Load Unpacked Extension". Then, navigate to its 
+directory and enable the extension. If you modify any of the code, go to `chrome://extensions` 
+and click "Reload".
+
 # How To Contribute
 **If you discover anything interesting or have anything you can contribute, please consider
 adding it to the wiki!** A pull request will allow you to make changes to code or wiki pages.
