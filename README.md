@@ -19,4 +19,4 @@ information.
 adding it to the wiki!** A pull request will allow you to make changes to code or wiki pages.
 
 # Contributors
-Lead Wiki Developer: firebolt55439
+firebolt55439, hxxr

@@ -73,10 +73,12 @@ injectScript("("+(function() {
 			} else if(data.length == 7){
 				console.log("Cursor moving.");
 			}
+			/*
 			if(data.length > 8 && data.length < 11 && data[1] != -116 && data[1] != -118){
 				console.log("Interesting:");
 				console.log(data);
 			}
+			*/
 			if(data[0] == 2){
 				// A name packet.
 				var arr = data.slice(1, data.length - 1);
