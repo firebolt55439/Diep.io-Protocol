@@ -5,7 +5,7 @@ visit the project Wiki (that is where all the protocol information is stored).
 
 # Getting Started
 First, read up on the game protocol in the wiki "Protocol" page in order to familiarize 
-yourself with the basics of diep.io communcation. Everything we have learned so far
+yourself with the basics of diep.io communication. Everything we have learned so far
 is stored in the wiki, and reading it will allow you a headstart in developing your own
 server, understanding the game protocol, or doing anything you wish with the game.
 
