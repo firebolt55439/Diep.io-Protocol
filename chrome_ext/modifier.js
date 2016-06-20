@@ -21,22 +21,26 @@ injectScript("("+(function() {
 		"Movement Speed"
 	];
 	var tankParams = {
-		2:"Twin",
-		12:"Sniper",
-		14:"Machine Gun",
-		16:"Flank Guard",
-		
 		// Twin
+		2:"Twin",
+		6:"Triple Shot",
+		4:"Triplet",
+		28:"Penta Shot",
 		
 		// Flank Guard
+		16:"Flank Guard",
 		18:"Tri-Angle",
+		46:"Booster",
+		48:"Fighter",
 		
 		// Machine Gun
+		14:"Machine Gun",
 		20:"Destroyer",
 		50:"Hybrid",
 		40:"Gunner",
 		
 		// Sniper
+		12:"Sniper",
 		22:"Overseer",
 		38:"Hunter",
 		30:"Assassin",
@@ -44,7 +48,13 @@ injectScript("("+(function() {
 		34:"Necromancer",
 		42:"Stalker",
 		44:"Ranger",
-		52:"Manager"
+		52:"Manager",
+		
+		// Twin/Flank Guard
+		8:"Quad Tank",
+		26:"Twin Flank",
+		10:"Octo Tank",
+		36:"Triple Twin"
 	};
 	function handleSendData(data) {
 		// This function is called whenever a packet is sent from the client
