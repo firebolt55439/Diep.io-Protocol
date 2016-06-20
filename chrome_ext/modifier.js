@@ -10,6 +10,16 @@ function injectScript(source){
 
 injectScript("("+(function() {
 	var proxiedSend = window.WebSocket.prototype.send;
+	var upgradeParams = [
+		"Health Regen",
+		"Max Health",
+		"Body Damage",
+		"Bullet Speed",
+		"Bullet Penetration",
+		"Bullet Damage",
+		"Reload",
+		"Movement Speed"
+	];
 	function handleSendData(data) {
 		// This function is called whenever a packet is sent from the client
 		// to the server.
@@ -31,7 +41,8 @@ injectScript("("+(function() {
 				// is smart and double-checks if you have enough points.
 				//console.log("Attempting to apply update 3 times.");
 				//for(var i = 0; i < 3; i++) proxiedSend.call(this, data);
-				console.log("Update packet detected:");
+				var param = upgradeParams[(14 - data[1]) / 2];
+				console.log("Detected '" + param + "' parameter upgrade with packet:");
 				console.log(data);
 			}
 			if(data[data.length - 1] > 0 && data.length > 5){
@@ -52,7 +63,6 @@ injectScript("("+(function() {
 					console.log("A (West)");
 				} else if(last == 8){
 					console.log("S (South)");
-					console.log(data);
 				} else if(last == 16){
 					console.log("D (East)");
 				} else if(last == 6 || last == 12 || last == 18 || last == 24){
