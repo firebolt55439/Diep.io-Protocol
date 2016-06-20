@@ -20,4 +20,5 @@ adding it to the wiki!** A pull request will allow you to make changes to code o
 
 # Contributors
 Lead Developer: firebolt55439
+
 Major Contributor(s): hxxr
