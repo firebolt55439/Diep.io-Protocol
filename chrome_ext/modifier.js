@@ -25,6 +25,10 @@ injectScript("("+(function() {
 		12:"Sniper",
 		14:"Machine Gun",
 		16:"Flank Guard",
+		22:"Overseer",
+		18:"Tri-Angle",
+		20:"Destroyer",
+		50:"Hybrid"
 	};
 	function handleSendData(data) {
 		// This function is called whenever a packet is sent from the client
