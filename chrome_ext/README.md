@@ -6,9 +6,30 @@ most likely node.js or C/C++).
 All packets/protocol information so far has been discovered by using this extension.
 
 # Set-Up Instructions
-To set up this extension, first clone this project and save it on your computer. Next, go 
-to `chrome://extensions` and click "Load Unpacked Extension". Then, navigate to its directory 
-and enable the extension. If you modify any of the code, go to `chrome://extensions` and click "Reload".
+
+![Load Unpacked Ext.](http://i.imgur.com/irmGkCb.png)
+
+To set up this extension and modify it, go to chrome://extensions and click "Load
+Unpacked Extension", then navigate to this directory (you will need to clone this
+project first).
 
 # How To Use
-_Instructions on usage and more are available on the wiki page titled "Chrome Extension"._
+The file "modifier.js" contains a framework for handling communications to/from
+the server. 
+
+To intercept packets sent by the client, modify the function `handleSendData(data)`. If you
+would like to modify the packet sent to the server, simply modify `data`, which is then
+returned by the function and sent to the server.
+
+Similarly, to intercept/modify packets sent by the server, use the function `handleRecvData(event, proxiedRecv)`.
+
+The `event` variable is simply the Javascript WebSocket event; to access the data, use `event.data`. 
+For altering the data, all you have to do is modify `event.data`. 
+
+If you would like to send the client custom packets or such in order to observe the client's response, etc., use `proxiedRecv.call(this, customEvent)`.
+
+# Handling Code Changes
+
+![Chrome Extension](http://i.imgur.com/jBaDsHM.png)
+
+Remember to navigate to `chrome://extensions` and click "Reload" after any changes to the code!
