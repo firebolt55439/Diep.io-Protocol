@@ -1,7 +1,7 @@
 # About
 This project aims to decipher the protocol diep.io uses to communicate, in hopes of 
-creating our own server eventually or doing interesting things with the game. Please
-visit the project Wiki for the protocol information.
+creating our own server eventually or doing interesting things with the game. **Please
+visit the project Wiki for the protocol information.**
 
 # Getting Started
 First, read up on the game protocol in the wiki "Protocol" page in order to familiarize 
