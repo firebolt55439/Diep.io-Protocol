@@ -84,7 +84,7 @@ injectScript("("+(function() {
 			if(data.length == 2 && data[0] == 4){
 				//Tank upgrades (sniper, twin, etc...)
 				var param = tankParams[data[1]];
-				console.log("Detected '" + param + "' parameter tank upgrade with packet:")
+				console.log("Detected tank upgrade to '" + param + "' with packet:")
 				console.log(data);
 			}
 			if(data[data.length - 1] > 0 && data.length > 5){
