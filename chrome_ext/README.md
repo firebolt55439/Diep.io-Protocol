@@ -9,12 +9,12 @@ All packets/protocol information so far has been discovered by using this extens
 
 ![Load Unpacked Ext.](http://i.imgur.com/irmGkCb.png)
 
-To set up this extension and modify it, go to chrome://extensions and click "Load
+To set up this extension and modify it, go to `chrome://extensions` and click "Load
 Unpacked Extension", then navigate to this directory (you will need to clone this
 project first).
 
 # How To Use
-The file "modifier.js" contains a framework for handling communications to/from
+The file `modifier.js` contains a framework for handling communications to/from
 the server. 
 
 To intercept packets sent by the client, modify the function `handleSendData(data)`. If you
