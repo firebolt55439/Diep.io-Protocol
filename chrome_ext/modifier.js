@@ -66,64 +66,68 @@ injectScript("("+(function() {
 		// len == 7: mouse location update?
 		// len == 8 or 9: at spawn screen
 		// len == 10: in game or observing
+		var SILENCE_DEBUGGING_INFO = false; // whether to silence debugging information or not
 		if(data.length > 1){
 			// WASD = 2 4 8 16 (3 5 9 17 w/ bullet)
 			// 6 18
 			// 12 24
 			// All packets that do upgrades are of size 2, however the server checks to
 			// make sure that you have the necessary "points" to upgrade.
-			if(data.length == 2 && data[0] == 3){
-				// This will re-send the upgrade packet 3 times, but the server
-				// is smart and double-checks if you have enough points.
-				//console.log("Attempting to apply update 3 times.");
-				//for(var i = 0; i < 3; i++) proxiedSend.call(this, data);
-				var param = upgradeParams[(14 - data[1]) / 2];
-				console.log("Detected '" + param + "' parameter upgrade with packet:");
-				console.log(data);
+			if(data.length == 2){
+				if(data[0] == 3){
+					// This will re-send the upgrade packet 3 times, but the server
+					// is smart and double-checks if you have enough points.
+					//console.log("Attempting to apply update 3 times.");
+					//for(var i = 0; i < 3; i++) proxiedSend.call(this, data);
+					var param = upgradeParams[(14 - data[1]) / 2];
+					console.log("Detected '" + param + "' parameter upgrade with packet:");
+					console.log(data);
+				} else if(data[0] == 4){
+					// Tank upgrades (sniper, twin, etc.)
+					var param = tankParams[data[1]];
+					console.log("Detected tank upgrade to '" + param + "' with packet:")
+					console.log(data);
+				}
 			}
-			if(data.length == 2 && data[0] == 4){
-				//Tank upgrades (sniper, twin, etc...)
-				var param = tankParams[data[1]];
-				console.log("Detected tank upgrade to '" + param + "' with packet:")
-				console.log(data);
-			}
+			var outStr = "";
 			if(data[data.length - 1] > 0 && data.length > 5 && data.length < 11){
 				var last = data[data.length - 1];
 				var bulletOpcodes = [1, 3, 5, 7, 9, 13, 17, 19, 25];
 				if(bulletOpcodes.indexOf(last) !== -1){
-					console.log("Bullet (" + data.length + ")!");
+					outStr += "Bullet (packet size: " + data.length + ")!\n";
 					if(last > 1){
-						console.log("Firing bullet while moving:");
+						outStr += "Firing bullet while moving: ";
 						--last;
 					}
-					//console.log("Attempting amplification...");
-					//for(var i = 0; i < 5; i++) proxiedSend.call(this, data);
 				}
 				if(last == 2){
-					console.log("W (North)");
+					outStr += "W (North)";
 				} else if(last == 4){
-					console.log("A (West)");
+					outStr += "A (West)";
 				} else if(last == 8){
-					console.log("S (South)");
+					outStr += "S (South)";
 				} else if(last == 16){
-					console.log("D (East)");
+					outStr += "D (East)";
 				} else if(last == 6 || last == 12 || last == 18 || last == 24){
 					var str = "";
 					if(last == 6) str = "NW";
 					else if(last == 12) str = "SW";
 					else if(last == 18) str = "NE";
 					else if(last == 24) str = "SE";
-					console.log("Diagonal Movement Direction: " + str);
+					outStr += "Diagonal (" + str + ")";
 				} else if(last > 1){
-					console.log("Unknown opcode with last number: " + last);
+					outStr += "Unknown opcode with last number: " + last;
 					//data[data.length - 1] = 0;
 				}
 				//console.log(data);
 			}
 			if(data.length == 6){
-				console.log("Cursor started moving.");
+				outStr += "Cursor started moving.";
 			} else if(data.length == 7){
-				console.log("Cursor moving.");
+				outStr += "Cursor moving.";
+			}
+			if(!SILENCE_DEBUGGING_INFO && outStr.length > 0){
+				console.log(outStr);
 			}
 			/*
 			if(data.length > 8 && data.length < 11 && data[1] != -116 && data[1] != -118){
@@ -171,6 +175,34 @@ injectScript("("+(function() {
 			var dv = new DataView(event.data);
 			console.log("Server sent client ArrayBuffer of size: " + event.data.byteLength);
 			console.log(dv.getUint8(0) + " " + dv.getUint8(1));
+			*/
+			var dv = new DataView(event.data);
+			//console.log("Packet type: " + dv.getUint8(0));
+			var str = "";
+			/*
+			VM4587:170 Packet type: 0
+			VM4587:173 162 91 0 13 1 0 0 0 11 76 
+			VM4587:170 Packet type: 0
+			VM4587:173 162 91 0 13 1 0 0 0 11 211 
+			VM4587:170 Packet type: 0
+			VM4587:173 162 91 0 13 1 0 0 0 11 230 
+			VM4587:170 Packet type: 0
+			VM4587:173 162 91 0 13 1 0 0 0 11 145 
+			VM4587:170 Packet type: 0
+			VM4587:173 162 91 0 13 1 0 0 0 11 222 
+			VM4587:170 Packet type: 0
+			VM4587:173 162 91 0 13 1 0 0 0 11 215 
+			VM4587:170 Packet type: 0
+			VM4587:173 162 91 0 13 1 0 0 0 11 132 
+			VM4587:170 Packet type: 0
+			VM4587:173 162 91 0 13 1 0 0 0 11 236
+			*/
+			/*
+			for(var i = 0; i < 10; i++) str += dv.getUint8(2 + i) + " ";
+			console.log(str);
+			str = "";
+			for(var i = 0; i < 10; i++) str += dv.getUint16(2 + 2*i) + " ";
+			console.log(str);
 			*/
 		}
 		return event;
