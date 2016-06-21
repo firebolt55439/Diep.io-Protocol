@@ -1,9 +1,10 @@
 # About
 This project aims to decipher the protocol diep.io uses to communicate, in hopes of 
-creating our own server eventually or doing interesting things with the game. **All the
-protocol information discovered so far is contained in the Wiki.**
+creating our own server eventually or doing interesting things with the game. 
 
 # Getting Started
+**All the protocol information discovered so far is contained in the Wiki.**
+
 First, read up on the game protocol in the wiki "Protocol" page in order to familiarize 
 yourself with the basics of diep.io communication. Everything we have learned so far
 is stored in the wiki, and reading it will allow you a headstart in developing your own
