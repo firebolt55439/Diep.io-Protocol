@@ -87,7 +87,7 @@ injectScript("("+(function() {
 				console.log("Detected tank upgrade to '" + param + "' with packet:")
 				console.log(data);
 			}
-			if(data[data.length - 1] > 0 && data.length > 5){
+			if(data[data.length - 1] > 0 && data.length > 5 && data.length < 11){
 				var last = data[data.length - 1];
 				var bulletOpcodes = [1, 3, 5, 7, 9, 13, 17, 19, 25];
 				if(bulletOpcodes.indexOf(last) !== -1){
@@ -166,6 +166,11 @@ injectScript("("+(function() {
 			console.log(dv.getUint8(0) + " " + dv.getUint8(1));
 			console.log(dv.getUint16(2));
 			//console.log(String.fromCharCode.apply(null, new Uint8Array(event.data)));
+			*/
+			/*
+			var dv = new DataView(event.data);
+			console.log("Server sent client ArrayBuffer of size: " + event.data.byteLength);
+			console.log(dv.getUint8(0) + " " + dv.getUint8(1));
 			*/
 		}
 		return event;
