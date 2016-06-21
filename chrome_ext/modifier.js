@@ -11,14 +11,14 @@ function injectScript(source){
 injectScript("("+(function() {
 	var proxiedSend = window.WebSocket.prototype.send;
 	var upgradeParams = [
-		"Health Regen",
-		"Max Health",
-		"Body Damage",
-		"Bullet Speed",
-		"Bullet Penetration",
-		"Bullet Damage",
+		"Movement Speed",
 		"Reload",
-		"Movement Speed"
+		"Bullet Damage",
+		"Bullet Penetration",
+		"Bullet Speed",
+		"Body Damage",
+		"Max Health",
+		"Health Regen"
 	];
 	var tankParams = {
 		// Twin
@@ -79,7 +79,7 @@ injectScript("("+(function() {
 					// is smart and double-checks if you have enough points.
 					//console.log("Attempting to apply update 3 times.");
 					//for(var i = 0; i < 3; i++) proxiedSend.call(this, data);
-					var param = upgradeParams[(14 - data[1]) / 2];
+					var param = upgradeParams[data[1] / 2];
 					console.log("Detected '" + param + "' parameter upgrade with packet:");
 					console.log(data);
 				} else if(data[0] == 4){
