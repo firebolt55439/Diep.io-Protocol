@@ -1,19 +1,22 @@
 // Untraced variables
+/*
 for (var y, x, N, hb, p, ha, ia, ja, ib = 0, R = 0, gb = !1, jb = 0, H = 0, Ia = 0, kb = 0, F = 0, lb = c.TOTAL_STACK || 5242880, S = c.TOTAL_MEMORY || 67108864, I = 65536; I < S || I < 2 * lb; )
     I = 16777216 > I ? 2 * I : I + 16777216;
 I !== S && (S = I);
+*/
 
-// Partially traced D() function
+// Traced D() function
+// This function returns 8 every time, unless there is not enough memory, but this is temporarily ignored
+var F = 0
 function D(a) {
+	a = a + 8
 	var b = F;
     F = F + a | 0;
     F = F + 15 & -16;
-    if (a = F >= S)
-        G("Cannot enlarge memory arrays. Either (1) compile with  -s TOTAL_MEMORY=X  with X higher than the current value " + S + ",  (2) compile with  -s ALLOW_MEMORY_GROWTH=1  which adjusts the size at runtime but prevents some optimizations, (3) set Module.TOTAL_MEMORY to a higher value before the program runs, or if you want malloc to return NULL (0) instead of this abort, compile with  -s ABORTING_MALLOC=0 "),
-        a = !0;
+    a = !0;
     n = a ? (F = b,
 	0) : b
-	return h.F(n + 8) + 8 & 4294967288
+	return n + 8 & 4294967288
 }
 
 
