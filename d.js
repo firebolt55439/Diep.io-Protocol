@@ -19,6 +19,14 @@ function D(a) {
 	return n + 8 & 4294967288
 }
 
+// ka() function
+// This function copies a[] into y[]
+var y = new Int8Array()
+function ka(a, b) {
+    for (var d = 0; d < a.length; d++)
+        y[b++] = a[d]
+}
+
 
 // Untraced h object
 var h = {
