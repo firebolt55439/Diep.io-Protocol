@@ -73,6 +73,22 @@ injectScript("("+(function() {
 			// 12 24
 			// All packets that do upgrades are of size 2, however the server checks to
 			// make sure that you have the necessary "points" to upgrade.
+			/*
+			if(data.length == 9 || data.length == 10){
+				//console.log(data[2]); 
+				SILENCE_DEBUGGING_INFO = true;
+				var buf = new ArrayBuffer(8);
+				var int8View = new Int8Array(buf);
+				for(var i = 1; i < 9; i++) int8View[i - 1] = data[i];
+				var view = new DataView(buf);
+				//var str = "";
+				//for(var i = 0; i < 8-3; i++) str += view.getFloat32(i, true) + " ";
+				//console.log(str);
+				console.log(view.getFloat64(0, true));
+				//data[1] = -118;
+				//data[8] = 1;
+			}
+			*/
 			if(data.length == 2){
 				if(data[0] == 3){
 					// This will re-send the upgrade packet 3 times, but the server
@@ -94,7 +110,7 @@ injectScript("("+(function() {
 				var last = data[data.length - 1];
 				var bulletOpcodes = [1, 3, 5, 7, 9, 13, 17, 19, 25];
 				if(bulletOpcodes.indexOf(last) !== -1){
-					outStr += "Bullet (packet size: " + data.length + ")!\n";
+					outStr += "Bullet!\n";
 					if(last > 1){
 						outStr += "Firing bullet while moving: ";
 						--last;

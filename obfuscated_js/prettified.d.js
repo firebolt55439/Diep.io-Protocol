@@ -95459,6 +95459,7 @@
 		 * @return {undefined}
 		 */
 		function instanceOf(value, val) {
+			// Mouse handler.
 			/** @type {number} */
 			value = value | 0;
 			/** @type {number} */
