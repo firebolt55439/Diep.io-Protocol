@@ -56,6 +56,35 @@ injectScript("("+(function() {
 		10:"Octo Tank",
 		36:"Triple Twin"
 	};
+	function decodeUTF8(bytes) {
+		// From: https://gist.github.com/pascaldekloe/62546103a1576803dade9269ccf76330
+		var s = '';
+		var i = 0;
+		while (i < bytes.length) {
+			var c = bytes[i++];
+			if (c > 127) {
+				if (c > 191 && c < 224) {
+					if (i >= bytes.length) throw 'UTF-8 decode: incomplete 2-byte sequence';
+					c = (c & 31) << 6 | bytes[i] & 63;
+				} else if (c > 223 && c < 240) {
+					if (i + 1 >= bytes.length) throw 'UTF-8 decode: incomplete 3-byte sequence';
+					c = (c & 15) << 12 | (bytes[i] & 63) << 6 | bytes[++i] & 63;
+				} else if (c > 239 && c < 248) {
+					if (i+2 >= bytes.length) throw 'UTF-8 decode: incomplete 4-byte sequence';
+					c = (c & 7) << 18 | (bytes[i] & 63) << 12 | (bytes[++i] & 63) << 6 | bytes[++i] & 63;
+				} else throw 'UTF-8 decode: unknown multibyte start 0x' + c.toString(16) + ' at index ' + (i - 1);
+				++i;
+			}
+
+			if (c <= 0xffff) s += String.fromCharCode(c);
+			else if (c <= 0x10ffff) {
+				c -= 0x10000;
+				s += String.fromCharCode(c >> 10 | 0xd800)
+				s += String.fromCharCode(c & 0x3FF | 0xdc00)
+			} else throw 'UTF-8 decode: code point 0x' + c.toString(16) + ' exceeds UTF-16 reach';
+		}
+		return s;
+	}
 	function handleSendData(data) {
 		// This function is called whenever a packet is sent from the client
 		// to the server.
@@ -154,7 +183,7 @@ injectScript("("+(function() {
 			if(data[0] == 2){
 				// A name packet.
 				var arr = data.slice(1, data.length - 1);
-				var name = String.fromCharCode.apply(null, arr);
+				var name = decodeUTF8(arr);
 				console.log("Intercepted in-game name: " + name);
 			}
 			/*
@@ -166,6 +195,7 @@ injectScript("("+(function() {
 		}
 		return data;
 	}
+	var lastLeaderboardNames = [];
 	function handleRecvData(event, proxiedRecv) {
 		// This function is called whenever the server sends data to the client.
 		// I have not had much luck deciphering server --> client communication due
@@ -176,11 +206,10 @@ injectScript("("+(function() {
 			inst.events.push([1, event.data, event.data.length]);
 		}
 		*/
-		if(event.data.byteLength > 1){
+		if(event.data.byteLength > 15){
 			/*
 			// Uncomment as needed to dump packets for inspection.
 			console.log("Recv Length: " + event.data.byteLength);
-			//console.log(intArrayToString(new Uint32Array(event.data)));
 			//console.log("Received data:");
 			var dv = new DataView(event.data);
 			console.log(dv.getUint8(0) + " " + dv.getUint8(1));
@@ -213,20 +242,122 @@ injectScript("("+(function() {
 			VM4587:170 Packet type: 0
 			VM4587:173 162 91 0 13 1 0 0 0 11 236
 			*/
+			var base_type = dv.getUint8(0);
+			var isLeaderboardPacket = function(dv, len) {
+				if(base_type != 0 && base_type != 2) return [false];
+				//var packet_opcode1 = dv.getUint32(7), packet_opcode2 = dv.getUint32(11);
+				var foundOff = -1;
+				for(var at_off = 7; (at_off + 48) < len; at_off++){
+					if(dv.getUint32(at_off) == 11 && dv.getUint8(at_off + 8) == 17){
+						foundOff = at_off;
+						break;
+					}
+				}
+				if(foundOff !== -1){
+					if(base_type == 2) console.log("TYPE TWO!");
+					return [true, foundOff + 9];
+				} else {
+					return [false];
+				}
+			}(dv, event.data.byteLength);
+			if(isLeaderboardPacket[0]){
+				// These types of packets are sent only when the leaderboard "violently"
+				// changes (e.g. someone dies on the leaderboard, rather than simply
+				// move up/down in score)
+				console.log("Potential leaderboard changed packet (at off. " + isLeaderboardPacket[1] + "):");
+				/*
+				if(packet_opcode1 != 11){
+					console.log("EXPERIMENTAL!!!");
+					str = "";
+					for(var i = 0; i < event.data.byteLength; i++){
+						str += dv.getUint8(i) + " ";
+						if(i > 0 && (i % 8 == 0)) str += "\n";
+					}
+					console.log(str);
+				}
+				*/
+				/*
+				console.log(String.fromCharCode.apply(null, new Uint8Array(event.data)));
+				*/
+				var starting_off = isLeaderboardPacket[1];
+				var found_names = 0;
+				var names = [];
+				for(var i = starting_off; i < event.data.byteLength; i++){
+					//console.log("At idx: " + i);
+					var start = i;
+					for(; i < event.data.byteLength && dv.getUint8(i) !== 0; i++){
+						var on = dv.getUint8(i);
+						//if(on < 32 || on > '}'.charCodeAt(0)) i = event.data.byteLength; // unprintable ASCII character
+					}
+					// [start, i)
+					var nameArr = new Uint8Array(event.data.slice(start, i));
+					//console.log(nameArr);
+					//console.log(String.fromCharCode.apply(null, nameArr));
+					var name = decodeUTF8(nameArr);
+					names.push(name);
+					++found_names;
+					if(found_names == 10){
+						/*
+						str = "";
+						for(var i = 0; i < event.data.byteLength; i++){
+							str += dv.getUint8(i) + " ";
+							if(i > 0 && (i % 8 == 0)) str += "\n";
+						}
+						console.log(str);
+						*/
+						console.log(names);
+						lastLeaderboardNames = names;
+						// found last leaderboard string
+						var off = 7;
+						//i = start;
+						start = i;
+						i += off;
+						if((i + 40) < event.data.byteLength){
+							for(var j = i; j <= (start + off + 4*5); j += 4){
+								console.log("Leaderboard Score: " + dv.getFloat32(j, /*littleEndian=*/true));
+							}
+						}
+						break;
+					}
+				}
+			}/* else if(lastLeaderboardNames.length > 0){
+				var asStr = String.fromCharCode.apply(null, new Uint8Array(event.data));
+				var one = false;
+				for(var i = 0; i < lastLeaderboardNames.length; i++){
+					var on = lastLeaderboardNames[i];
+					if(on.length < 2) continue;
+					if(asStr.indexOf(on) !== -1){
+						one = true;
+						console.log("Found '" + on + "' of leaderboard fame in packet of len " + event.data.byteLength + ", type " + base_type);
+					}
+				}
+				if(one){
+					str = "";
+					for(var i = 0; i < event.data.byteLength; i++){
+						str += dv.getUint8(i) + " ";
+						if(i > 0 && (i % 8 == 0)) str += "\n";
+					}
+					console.log(str);
+				}
+			}*//* else {
+				var asStr = String.fromCharCode.apply(null, new Uint8Array(event.data));
+				if(asStr.toLowerCase().indexOf("mg") !== -1){
+					console.log("MG Packet of len " + event.data.byteLength + ", type " + base_type + ":");
+					str = "";
+					for(var i = 0; i < event.data.byteLength; i++){
+						str += dv.getUint8(i) + " ";
+						if(i > 0 && (i % 8 == 0)) str += "\n";
+					}
+					console.log(str);
+				}
+			}*/
 			/*
-			for(var i = 0; i < 10; i++) str += dv.getUint8(2 + i) + " ";
-			console.log(str);
-			str = "";
 			for(var i = 0; i < 10; i++) str += dv.getUint16(2 + 2*i) + " ";
 			console.log(str);
 			*/
 		}
 		return event;
 	}
-	// Locate websocket classes.
-	console.log("WS:");
-	console.log(window.WebSocket.prototype);
-	//console.log(m.sockets);
 	
 	// Snoop on outgoing websocket traffic.
 	
@@ -234,8 +365,8 @@ injectScript("("+(function() {
 	window.WebSocket.prototype.send = function(data) {
 		// Note: Data is given as an Int8Array JS object.
 		if(!wsInstances.has(this)){
-			console.log("New WebSocket Used:");
-			console.log(this);
+			//console.log("New WebSocket Used:");
+			//console.log(this);
 			wsInstances.add(this);
 			
 			// Snoop on incoming websocket traffic.
@@ -245,7 +376,7 @@ injectScript("("+(function() {
 				event = handleRecvData.call(this, event, proxiedRecv);
 				return proxiedRecv.call(this, event);
 			};
-			console.log("Successfully hijacked onmessage handler.");
+			//console.log("Successfully hijacked onmessage handler.");
 		}
 		data = handleSendData.call(this, data);
 		return proxiedSend.call(this, data);
