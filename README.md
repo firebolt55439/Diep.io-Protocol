@@ -45,6 +45,4 @@ submitting a pull request.**
 Forking this project and submitting a pull request will allow you to contribute changes to code.
 
 # Contributors
-**Project Lead**: firebolt55439
-
-**Major Contributor(s)**: hxxr
+**Team Members**: firebolt55439, hxxr, FlorianCassayre
