@@ -10,6 +10,8 @@ function injectScript(source){
 
 injectScript("("+(function() {
 	var proxiedSend = window.WebSocket.prototype.send;
+	
+	// Upgrades
 	var upgradeParams = [
 		"Movement Speed",
 		"Reload",
@@ -20,6 +22,8 @@ injectScript("("+(function() {
 		"Max Health",
 		"Health Regen"
 	];
+	
+	// Tanks
 	var tankParams = {
 		// Twin
 		2:"Twin",
@@ -56,6 +60,10 @@ injectScript("("+(function() {
 		10:"Octo Tank",
 		36:"Triple Twin"
 	};
+	
+	// Server uptime, in ticks
+	var uptime = 0;
+	
 	function decodeUTF8(bytes) {
 		// From: https://gist.github.com/pascaldekloe/62546103a1576803dade9269ccf76330
 		var s = '';
@@ -197,6 +205,7 @@ injectScript("("+(function() {
 	}
 	var lastLeaderboardNames = [];
 	function handleRecvData(event, proxiedRecv) {
+		var dv = new DataView(event.data);
 		// This function is called whenever the server sends data to the client.
 		// I have not had much luck deciphering server --> client communication due
 		// to extensive obfuscation of the client JS code for handling data
@@ -206,6 +215,16 @@ injectScript("("+(function() {
 			inst.events.push([1, event.data, event.data.length]);
 		}
 		*/
+		
+		// Get server uptime, in ticks
+		if(dv.getUint8(0) == 0){
+			var a = dv.getUint8(1) - 128;
+			var b = (dv.getUint8(2) - 128) * 128;
+			var c = dv.getUint8(3) * 16384
+			uptime = a + b + c;
+			//console.log(uptime);
+		}
+		
 		if(event.data.byteLength > 15){
 			/*
 			// Uncomment as needed to dump packets for inspection.
@@ -221,7 +240,7 @@ injectScript("("+(function() {
 			console.log("Server sent client ArrayBuffer of size: " + event.data.byteLength);
 			console.log(dv.getUint8(0) + " " + dv.getUint8(1));
 			*/
-			var dv = new DataView(event.data);
+			
 			//console.log("Packet type: " + dv.getUint8(0));
 			var str = "";
 			/*
