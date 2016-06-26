@@ -45,4 +45,4 @@ submitting a pull request.**
 Forking this project and submitting a pull request will allow you to contribute changes to code.
 
 # Contributors
-**Team Members**: firebolt55439, hxxr, FlorianCassayre
+**Team Members**: [firebolt55439](https://github.com/firebolt55439), [hxxr](https://github.com/hxxr), [FlorianCassayre](https://github.com/FlorianCassayre)
