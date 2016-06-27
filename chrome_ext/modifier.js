@@ -216,7 +216,7 @@ injectScript("("+(function() {
 		}
 		*/
 		
-		// Get server uptime, in ticks (does not work on Domination)
+		// Get server uptime, in ticks (A tick is 40 milliseconds)
 		if(dv.getUint8(0) == 0){
 			/*
 			for(var d = [], i = 0; i <= 8; i++){
@@ -226,7 +226,7 @@ injectScript("("+(function() {
 			*/
 			if((dv.getUint8(3) == 0 && dv.getUint8(5) == 1 && dv.getUint8(8) == 0)||
 			(dv.getUint8(3) == 1 && (dv.getUint8(4) == 0 || dv.getUint8(4) == 1 || dv.getUint8(4) == 2))){
-				// For Mothership only
+				// For Domination and Mothership
 				var a = dv.getUint8(1) - 128;
 				var b = dv.getUint8(2) * 128;
 				uptime = a + b;
