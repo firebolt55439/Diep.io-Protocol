@@ -3,7 +3,7 @@ This project aims to decipher the protocol diep.io uses to communicate, in hopes
 creating our own server eventually or doing interesting things with the game. 
 
 # Getting Started
-**All the protocol information discovered so far is contained in the Wiki.**
+**All the protocol information discovered so far is contained in the [Wiki](https://github.com/firebolt55439/Diep.io-Protocol/wiki).**
 
 First, read up on the game protocol in the wiki "Protocol" page in order to familiarize 
 yourself with the basics of diep.io communication. Everything we have learned so far
