@@ -3,7 +3,7 @@ This project aims to decipher the protocol diep.io uses to communicate, in hopes
 creating our own server eventually or doing interesting things with the game. 
 
 # Getting Started
-**All the protocol information discovered so far is contained in the Wiki.**
+**All the protocol information discovered so far is contained in the [Wiki](https://github.com/firebolt55439/Diep.io-Protocol/wiki).**
 
 First, read up on the game protocol in the wiki "Protocol" page in order to familiarize 
 yourself with the basics of diep.io communication. Everything we have learned so far
@@ -45,6 +45,4 @@ submitting a pull request.**
 Forking this project and submitting a pull request will allow you to contribute changes to code.
 
 # Contributors
-**Project Lead**: firebolt55439
-
-**Major Contributor(s)**: hxxr
+**Team Members**: [firebolt55439](https://github.com/firebolt55439), [hxxr](https://github.com/hxxr), [FlorianCassayre](https://github.com/FlorianCassayre)
