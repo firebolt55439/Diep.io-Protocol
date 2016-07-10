@@ -53,6 +53,7 @@ injectScript("("+(function() {
 		42:"Stalker",
 		44:"Ranger",
 		52:"Manager",
+		56:"X Hunter",
 		
 		// Twin/Flank Guard
 		8:"Quad Tank",
@@ -103,7 +104,7 @@ injectScript("("+(function() {
 		// len == 7: mouse location update?
 		// len == 8 or 9: at spawn screen
 		// len == 10: in game or observing
-		var SILENCE_DEBUGGING_INFO = false; // whether to silence debugging information or not
+		var SILENCE_DEBUGGING_INFO = true; // whether to silence debugging information or not
 		if(data.length > 1){
 			// WASD = 2 4 8 16 (3 5 9 17 w/ bullet)
 			// 6 18
