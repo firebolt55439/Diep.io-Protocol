@@ -42,6 +42,7 @@ injectScript("("+(function() {
 		20:"Destroyer",
 		50:"Hybrid",
 		40:"Gunner",
+		58:"Machine Gun II",
 		
 		// Sniper
 		12:"Sniper",
@@ -54,6 +55,7 @@ injectScript("("+(function() {
 		44:"Ranger",
 		52:"Manager",
 		56:"X Hunter",
+		60:"Predator",
 		
 		// Twin/Flank Guard
 		8:"Quad Tank",
