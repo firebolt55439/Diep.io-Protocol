@@ -42,7 +42,7 @@ injectScript("("+(function() {
 		20:"Destroyer",
 		50:"Hybrid",
 		40:"Gunner",
-		58:"Machine Gun II",
+		58:"Sprayer",
 		
 		// Sniper
 		12:"Sniper",
