@@ -57,6 +57,8 @@ injectScript("("+(function() {
 		56:"X Hunter",
 		60:"Predator",
 		62:"Trapper",
+		68:"Mega Trapper",
+		70:"Tri-Trapper",
 		
 		// Twin/Flank Guard
 		8:"Quad Tank",
