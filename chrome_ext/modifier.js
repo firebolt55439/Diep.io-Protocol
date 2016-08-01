@@ -57,6 +57,8 @@ injectScript("("+(function() {
 		56:"X Hunter",
 		60:"Predator",
 		62:"Trapper",
+		64:"Gunner Trapper",
+		66:"Overtrapper",
 		68:"Mega Trapper",
 		70:"Tri-Trapper",
 		
