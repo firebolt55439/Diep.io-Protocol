@@ -56,6 +56,7 @@ injectScript("("+(function() {
 		52:"Manager",
 		56:"X Hunter",
 		60:"Predator",
+		62:"Trapper",
 		
 		// Twin/Flank Guard
 		8:"Quad Tank",
