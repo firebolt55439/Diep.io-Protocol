@@ -66,7 +66,12 @@ injectScript("("+(function() {
 		8:"Quad Tank",
 		26:"Twin Flank",
 		10:"Octo Tank",
-		36:"Triple Twin"
+		36:"Triple Twin",
+		
+		// Smasher
+		72:"Smasher",
+		74:"Mega Smasher",
+		76:"Landmine"
 	};
 	
 	// Server uptime, in ticks
