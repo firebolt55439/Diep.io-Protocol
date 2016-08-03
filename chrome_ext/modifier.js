@@ -44,6 +44,7 @@ injectScript("("+(function() {
 		40:"Gunner",
 		58:"Sprayer",
 		78:"Auto Gunner",
+		80:"Auto Tank",
 		
 		// Sniper
 		12:"Sniper",
