@@ -36,6 +36,8 @@ injectScript("("+(function() {
 		18:"Tri-Angle",
 		46:"Booster",
 		48:"Fighter",
+		80:"Auto Tank",
+		82:"Flank Guard II",
 		
 		// Machine Gun
 		14:"Machine Gun",
@@ -44,7 +46,6 @@ injectScript("("+(function() {
 		40:"Gunner",
 		58:"Sprayer",
 		78:"Auto Gunner",
-		80:"Auto Tank",
 		
 		// Sniper
 		12:"Sniper",
