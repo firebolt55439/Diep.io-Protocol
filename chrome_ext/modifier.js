@@ -80,6 +80,12 @@ injectScript("("+(function() {
 	// Server uptime, in ticks
 	var uptime = 0;
 	
+	// Cursor X coordinate
+	var xc = 0;
+	
+	// Cursor Y coordinate
+	var yc = 0;
+	
 	function decodeUTF8(bytes) {
 		// From: https://gist.github.com/pascaldekloe/62546103a1576803dade9269ccf76330
 		var s = '';
@@ -159,6 +165,26 @@ injectScript("("+(function() {
 				}
 			}
 			var outStr = "";
+			/*
+			if (data[0] == 1){
+				console.log(data)
+			}
+			*/
+			if(data[0] == 1 && data.length == 10){
+				var xb = (data[3] != -128) ? (Math.abs(data[3])%32-24) : 8; // Big X
+				var xd = (Math.abs(data[2])-1)/128; // Decimal floating point X
+				xc = (Math.abs(data[1])*4) + xb; // Cursor X
+				xc = (xc != 440) ? xc - 470 : 2;
+				xc += xd
+				//console.log("x "+xc);
+				
+				var yb = (data[7] != -128) ? (Math.abs(data[7])%32-24) : 8; // Big Y
+				var yd = (Math.abs(data[6])-1)/128; // Decimal floating point Y
+				yc = (Math.abs(data[5])*4) + yb; // Cursor Y
+				yc = (yc != 440) ? yc - 470 : 2;
+				yc += yd
+				//console.log("y "+yc);
+			}
 			if(data[data.length - 1] > 0 && data.length > 5 && data.length < 11){
 				var last = data[data.length - 1];
 				var bulletOpcodes = [1, 3, 5, 7, 9, 13, 17, 19, 25];
