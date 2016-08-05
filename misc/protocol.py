@@ -1,0 +1,33 @@
+import os
+import sys
+
+def main():
+	print "Enter the server hexcode: ",
+	code = sys.stdin.readline().strip().replace("#","")
+	code = [code[i:i+2] for i in range(0, len(code), 2)]
+	print code
+	flipped = [x[::-1] for x in code]
+	print flipped
+	decimal = [int("0x" + flipped[i], 16) for i in xrange(4)]
+	print "Server IP: {}".format('.'.join([str(x) for x in decimal]))
+	sec_last = code[-1][0]
+	print 'from: {}'.format(sec_last)
+	if ord('0') <= ord(sec_last) <= ord('9'):
+		to_int = ord(sec_last) - ord('0')
+		if to_int % 2 == 0:
+			to_int += 1
+		else:
+			to_int -= 1
+		sec_last = chr(to_int + ord('0'))
+	else:
+		flip = {'A':'B', 'B':'A', 'C':'D', 'D':'C', 'E':'F', 'F':'E'}
+		sec_last = flip[sec_last]
+	print 'to: {}'.format(sec_last)
+	new_code = code
+	sec_list = list(new_code[-1])
+	sec_list[0] = sec_last
+	new_code[-1] = ''.join(sec_list)
+	print "Other team link: http://diep.io/#{}".format(''.join(new_code))
+
+if __name__ == '__main__':
+	main()
