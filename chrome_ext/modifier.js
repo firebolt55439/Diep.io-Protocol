@@ -13,14 +13,14 @@ injectScript("("+(function() {
 	
 	// Upgrades
 	var upgradeParams = [
-		"Movement Speed",
 		"Reload",
-		"Bullet Damage",
+		"Movement Speed",
 		"Bullet Penetration",
-		"Bullet Speed",
+		"Bullet Damage",
 		"Body Damage",
-		"Max Health",
-		"Health Regen"
+		"Bullet Speed",
+		"Health Regen",
+		"Max Health"
 	];
 	
 	// Tanks
