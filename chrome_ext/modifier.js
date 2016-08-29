@@ -3,14 +3,23 @@ function injectScript(source){
     var elem = document.createElement("script");
     elem.type = "text/javascript";
     elem.innerHTML = source;
-    
+
     // Inject it into the DOM.
     document.documentElement.appendChild(elem);
 }
 
 injectScript("("+(function() {
 	var proxiedSend = window.WebSocket.prototype.send;
-	
+	var _toString = window.Function.prototype.toString;
+
+
+	Function.prototype.toString = function(){
+	    if(this === Function.prototype.toString) return _toString.call(_toString);
+	    if(this === window.WebSocket.prototype.send) return _toString.call(proxiedSend);
+	    return _toString.call(this);
+	};
+
+
 	// Upgrades
 	var upgradeParams = [
 		"Reload",
@@ -22,7 +31,7 @@ injectScript("("+(function() {
 		"Health Regen",
 		"Max Health"
 	];
-	
+
 	// Tanks
 	var tankParams = {
 		// Twin
@@ -30,7 +39,7 @@ injectScript("("+(function() {
 		6:"Triple Shot",
 		4:"Triplet",
 		28:"Penta Shot",
-		
+
 		// Flank Guard
 		16:"Flank Guard",
 		18:"Tri-Angle",
@@ -38,7 +47,7 @@ injectScript("("+(function() {
 		48:"Fighter",
 		80:"Auto 5",
 		82:"Auto 3",
-		
+
 		// Machine Gun
 		14:"Machine Gun",
 		20:"Destroyer",
@@ -46,7 +55,7 @@ injectScript("("+(function() {
 		40:"Gunner",
 		58:"Sprayer",
 		78:"Auto Gunner",
-		
+
 		// Sniper
 		12:"Sniper",
 		22:"Overseer",
@@ -64,28 +73,28 @@ injectScript("("+(function() {
 		66:"Overtrapper",
 		68:"Mega Trapper",
 		70:"Tri-Trapper",
-		
+
 		// Twin/Flank Guard
 		8:"Quad Tank",
 		26:"Twin Flank",
 		10:"Octo Tank",
 		36:"Triple Twin",
-		
+
 		// Smasher
 		72:"Smasher",
 		74:"Mega Smasher",
 		76:"Landmine"
 	};
-	
+
 	// Server uptime, in ticks
 	var uptime = 0;
-	
+
 	// Cursor X coordinate
 	var xc = 0;
-	
+
 	// Cursor Y coordinate
 	var yc = 0;
-	
+
 	function decodeUTF8(bytes) {
 		// From: https://gist.github.com/pascaldekloe/62546103a1576803dade9269ccf76330
 		var s = '';
@@ -134,7 +143,7 @@ injectScript("("+(function() {
 			// make sure that you have the necessary "points" to upgrade.
 			/*
 			if(data.length == 9 || data.length == 10){
-				//console.log(data[2]); 
+				//console.log(data[2]);
 				SILENCE_DEBUGGING_INFO = true;
 				var buf = new ArrayBuffer(8);
 				var int8View = new Int8Array(buf);
@@ -177,7 +186,7 @@ injectScript("("+(function() {
 				xc = (xc != 440) ? xc - 470 : 2;
 				xc += xd
 				//console.log("x "+xc);
-				
+
 				var yb = (data[7] != -128) ? (Math.abs(data[7])%32-24) : 8; // Big Y
 				var yd = (Math.abs(data[6])-1)/128; // Decimal floating point Y
 				yc = (Math.abs(data[5])*4) + yb; // Cursor Y
@@ -257,7 +266,7 @@ injectScript("("+(function() {
 			inst.events.push([1, event.data, event.data.length]);
 		}
 		*/
-		
+
 		// Get server uptime, in ticks (A tick is 40 milliseconds)
 		if(dv.getUint8(0) == 0){
 			/*
@@ -282,7 +291,7 @@ injectScript("("+(function() {
 				//console.log(uptime);
 			}
 		}
-		
+
 		if(event.data.byteLength > 15){
 			/*
 			// Uncomment as needed to dump packets for inspection.
@@ -298,24 +307,24 @@ injectScript("("+(function() {
 			console.log("Server sent client ArrayBuffer of size: " + event.data.byteLength);
 			console.log(dv.getUint8(0) + " " + dv.getUint8(1));
 			*/
-			
+
 			//console.log("Packet type: " + dv.getUint8(0));
 			var str = "";
 			/*
 			VM4587:170 Packet type: 0
-			VM4587:173 162 91 0 13 1 0 0 0 11 76 
+			VM4587:173 162 91 0 13 1 0 0 0 11 76
 			VM4587:170 Packet type: 0
-			VM4587:173 162 91 0 13 1 0 0 0 11 211 
+			VM4587:173 162 91 0 13 1 0 0 0 11 211
 			VM4587:170 Packet type: 0
-			VM4587:173 162 91 0 13 1 0 0 0 11 230 
+			VM4587:173 162 91 0 13 1 0 0 0 11 230
 			VM4587:170 Packet type: 0
-			VM4587:173 162 91 0 13 1 0 0 0 11 145 
+			VM4587:173 162 91 0 13 1 0 0 0 11 145
 			VM4587:170 Packet type: 0
-			VM4587:173 162 91 0 13 1 0 0 0 11 222 
+			VM4587:173 162 91 0 13 1 0 0 0 11 222
 			VM4587:170 Packet type: 0
-			VM4587:173 162 91 0 13 1 0 0 0 11 215 
+			VM4587:173 162 91 0 13 1 0 0 0 11 215
 			VM4587:170 Packet type: 0
-			VM4587:173 162 91 0 13 1 0 0 0 11 132 
+			VM4587:173 162 91 0 13 1 0 0 0 11 132
 			VM4587:170 Packet type: 0
 			VM4587:173 162 91 0 13 1 0 0 0 11 236
 			*/
@@ -435,9 +444,9 @@ injectScript("("+(function() {
 		}
 		return event;
 	}
-	
+
 	// Snoop on outgoing websocket traffic.
-	
+
 	var wsInstances = new Set();
 	window.WebSocket.prototype.send = function(data) {
 		// Note: Data is given as an Int8Array JS object.
@@ -445,7 +454,7 @@ injectScript("("+(function() {
 			//console.log("New WebSocket Used:");
 			//console.log(this);
 			wsInstances.add(this);
-			
+
 			// Snoop on incoming websocket traffic.
 			var inst = this;
 			var proxiedRecv = inst.onmessage;
@@ -459,5 +468,5 @@ injectScript("("+(function() {
 		return proxiedSend.call(this, data);
 	};
 
-	
+
 }).toString()+")(" + JSON.stringify([/*arguments*/]) + ")");
