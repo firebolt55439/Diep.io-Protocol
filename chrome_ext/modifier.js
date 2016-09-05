@@ -22,14 +22,14 @@ injectScript("("+(function() {
 
 	// Upgrades
 	var upgradeParams = [
-		"Reload",
-		"Movement Speed",
-		"Bullet Penetration",
-		"Bullet Damage",
+		"Health Regen",
+		"Mac Health",
 		"Body Damage",
 		"Bullet Speed",
-		"Health Regen",
-		"Max Health"
+		"Bullet Penetration",
+		"Bullet Damage",
+		"Reload",
+		"Movement Speed"
 	];
 
 	// Tanks
@@ -293,6 +293,7 @@ injectScript("("+(function() {
 		}
 
 		if(event.data.byteLength > 15){
+			
 			/*
 			// Uncomment as needed to dump packets for inspection.
 			console.log("Recv Length: " + event.data.byteLength);
