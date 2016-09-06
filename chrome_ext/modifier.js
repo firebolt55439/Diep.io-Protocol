@@ -266,8 +266,7 @@ injectScript("("+(function() {
 			inst.events.push([1, event.data, event.data.length]);
 		}
 		*/
-
-		// Get server uptime, in ticks (A tick is 40 milliseconds)
+		
 		if(dv.getUint8(0) == 0){
 			/*
 			for(var d = [], i = 0; i <= 8; i++){
@@ -275,6 +274,8 @@ injectScript("("+(function() {
 			}
 			console.log(d)
 			*/
+			
+			// Get server uptime, in ticks (A tick is 40 milliseconds)
 			if((dv.getUint8(3) == 0 && dv.getUint8(5) == 1 && dv.getUint8(8) == 0)||
 			(dv.getUint8(3) == 1 && (dv.getUint8(4) == 0 || dv.getUint8(4) == 1 || dv.getUint8(4) == 2))){
 				// For Domination and Mothership
@@ -445,6 +446,30 @@ injectScript("("+(function() {
 		}
 		return event;
 	}
+	
+	// Checks if an array is present inside a larger array
+	function scan(array, query) {
+		var z = array.indexOf(query[0]);
+		if (z == -1)
+			return 0
+		for (var i = 1; i < query.length; i++){
+			if (array[z + i] != query[1])
+				return 0
+		}
+		return z
+	}
+	
+	// Gets subarray at index but stops when it reaches null
+	function parse(array, index) {
+		var z = [];
+		for (var i = index; i < array.length; i++){
+			if (array[i] == 0)
+				break
+			z[z.length] = array[i]
+		}
+		return z;
+	}
+	
 
 	// Snoop on outgoing websocket traffic.
 
