@@ -279,12 +279,18 @@ injectScript("("+(function() {
 		var kt = scan(ar, entities.triangle);
 		var ks = scan(ar, entities.square);
 		var kp = scan(ar, entities.pentagon);
-		if(kt && ar[kt-1] == 6)
-			console.log("Killed by a red triangle")
-		if(ks && ar[ks-1] == 6)
-			console.log("Killed by a yellow square")
-		if(kp && ar[kp-1] == 6)
-			console.log("Killed by a blue pentagon")
+		if(kt && ar[kt-1] != 1){
+			console.log("Killed by a red triangle with packet:");
+			console.log(parse(ar, kt-1));
+		}
+		if(ks && ar[ks-1] != 1){
+			console.log("Killed by a yellow square with packet:");
+			console.log(parse(ar, ks-1));
+		}
+		if(kp && ar[kp-1] != 1){
+			console.log("Killed by a blue pentagon with packet:");
+			console.log(parse(ar, kp-1));
+		}
 		
 		if(dv.getUint8(0) == 0){
 			/*
