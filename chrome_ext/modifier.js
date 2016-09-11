@@ -85,6 +85,13 @@ injectScript("("+(function() {
 		74:"Mega Smasher",
 		76:"Landmine"
 	};
+	
+	// Entities
+	var entities = {
+		triangle:[84, 114, 105, 97, 110, 103, 108, 101],
+		square:[83, 113, 117, 97, 114, 101],
+		pentagon:[80, 101, 110, 116, 97, 103, 111, 110]
+	};
 
 	// Server uptime, in ticks
 	var uptime = 0;
@@ -267,6 +274,18 @@ injectScript("("+(function() {
 		}
 		*/
 		
+		// Detects kills
+		var ar = new Uint8Array(event.data);
+		var kt = scan(ar, entities.triangle);
+		var ks = scan(ar, entities.square);
+		var kp = scan(ar, entities.pentagon);
+		if(kt && ar[kt-1] == 6)
+			console.log("Killed by a red triangle")
+		if(ks && ar[ks-1] == 6)
+			console.log("Killed by a yellow square")
+		if(kp && ar[kp-1] == 6)
+			console.log("Killed by a blue pentagon")
+		
 		if(dv.getUint8(0) == 0){
 			/*
 			for(var d = [], i = 0; i <= 8; i++){
@@ -274,6 +293,7 @@ injectScript("("+(function() {
 			}
 			console.log(d)
 			*/
+			
 			
 			// Get server uptime, in ticks (A tick is 40 milliseconds)
 			if((dv.getUint8(3) == 0 && dv.getUint8(5) == 1 && dv.getUint8(8) == 0)||
@@ -453,7 +473,7 @@ injectScript("("+(function() {
 		if (z == -1)
 			return 0
 		for (var i = 1; i < query.length; i++){
-			if (array[z + i] != query[1])
+			if (array[z + i] != query[i])
 				return 0
 		}
 		return z
