@@ -101,6 +101,8 @@ injectScript("("+(function() {
 
 	// Cursor Y coordinate
 	var yc = 0;
+	
+	var f = -1;
 
 	function decodeUTF8(bytes) {
 		// From: https://gist.github.com/pascaldekloe/62546103a1576803dade9269ccf76330
@@ -279,17 +281,23 @@ injectScript("("+(function() {
 		var kt = scan(ar, entities.triangle);
 		var ks = scan(ar, entities.square);
 		var kp = scan(ar, entities.pentagon);
-		if(kt && ar[kt-1] != 1){
-			console.log("Killed by a red triangle with packet:");
-			console.log(parse(ar, kt-1));
+		if(kt){
+			if(f == -1)
+				f = ar[kt-1];
+			if(f != ar[kt-1])
+				console.log("Killed by a red triangle with packet: " + parse(ar, kt-1));
 		}
-		if(ks && ar[ks-1] != 1){
-			console.log("Killed by a yellow square with packet:");
-			console.log(parse(ar, ks-1));
+		if(ks){
+			if(f == -1)
+				f = ar[ks-1];
+			if(f != ar[ks-1])
+				console.log("Killed by a yellow square with packet: " + parse(ar, ks-1));
 		}
-		if(kp && ar[kp-1] != 1){
-			console.log("Killed by a blue pentagon with packet:");
-			console.log(parse(ar, kp-1));
+		if(kp){
+			if(f == -1)
+				f = ar[kp-1];
+			if(f != ar[kp-1])
+				console.log("Killed by a blue pentagon with packet: " + parse(ar, kp-1));
 		}
 		
 		if(dv.getUint8(0) == 0){
