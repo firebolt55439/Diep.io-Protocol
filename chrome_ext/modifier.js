@@ -88,9 +88,21 @@ injectScript("("+(function() {
 	
 	// Entities
 	var entities = {
+		// Basic Polygons
 		triangle:[84, 114, 105, 97, 110, 103, 108, 101],
 		square:[83, 113, 117, 97, 114, 101],
-		pentagon:[80, 101, 110, 116, 97, 103, 111, 110]
+		pentagon:[80, 101, 110, 116, 97, 103, 111, 110],
+		
+		// Advanced Polygons
+		crasher:[67, 114, 97, 115, 104, 101, 114],
+		alpha_pentagon:[65, 108, 112, 104, 97, 32, 80, 101, 110, 116, 97, 103, 111, 110],
+		
+		// Boss Enemies
+		guardian:[71, 117, 97, 114, 100, 105, 97, 110],
+		summoner:[83, 117, 109, 109, 111, 110, 101, 114],
+		defender:[68, 101, 102, 101, 110, 100, 101, 114],
+		fallen_booster:[70, 97, 108, 108, 101, 110, 32, 66, 111, 111, 115, 116, 101, 114],
+		fallen_overlord:[70, 97, 108, 108, 101, 110, 32, 79, 118, 101, 114, 108, 111, 114, 100]
 	};
 
 	// Server uptime, in ticks
@@ -278,28 +290,76 @@ injectScript("("+(function() {
 		
 		// Detects kills
 		var ar = new Uint8Array(event.data);
-		var kt = scan(ar, entities.triangle);
-		var ks = scan(ar, entities.square);
-		var kp = scan(ar, entities.pentagon);
-		if(kt){
+		var ka = scan(ar, entities.triangle);
+		var kb = scan(ar, entities.square);
+		var kc = scan(ar, entities.pentagon);
+		var kd = scan(ar, entities.crasher);
+		var ke = scan(ar, entities.alpha_pentagon);
+		var kf = scan(ar, entities.guardian);
+		var kg = scan(ar, entities.summoner);
+		var kh = scan(ar, entities.defender);
+		var ki = scan(ar, entities.fallen_booster);
+		var kj = scan(ar, entities.fallen_overlord);
+		if(ka && ar[ka-1] < 11){
 			if(f == -1)
-				f = ar[kt-1];
-			if(f != ar[kt-1])
-				console.log("Killed by a red triangle with packet: " + parse(ar, kt-1));
+				f = ar[ka-1];
+			if(f != ar[ka-1])
+				console.log("Killed by a red triangle with packet: " + parse(ar, ka-1));
 		}
-		if(ks){
+		if(kb && ar[kb-1] < 11){
 			if(f == -1)
-				f = ar[ks-1];
-			if(f != ar[ks-1])
-				console.log("Killed by a yellow square with packet: " + parse(ar, ks-1));
+				f = ar[kb-1];
+			if(f != ar[kb-1])
+				console.log("Killed by a yellow square with packet: " + parse(ar, kb-1));
 		}
-		if(kp){
+		if(kc && ar[kc-1] < 11){
 			if(f == -1)
-				f = ar[kp-1];
-			if(f != ar[kp-1])
-				console.log("Killed by a blue pentagon with packet: " + parse(ar, kp-1));
+				f = ar[kc-1];
+			if(f != ar[kc-1])
+				console.log("Killed by a blue pentagon with packet: " + parse(ar, kc-1));
 		}
-		
+		if(kd && ar[kd-1] < 11){
+			if(f == -1)
+				f = ar[kd-1];
+			if(f != ar[kd-1])
+				console.log("Killed by a pink crasher triangle with packet: " + parse(ar, kd-1));
+		}
+		if(ke && ar[ke-1] < 11){
+			if(f == -1)
+				f = ar[ke-1];
+			if(f != ar[ke-1])
+				console.log("Killed by an Alpha Pentagon with packet: " + parse(ar, ke-1));
+		}
+		if(kf && ar[kf-1] < 11){
+			if(f == -1)
+				f = ar[kf-1];
+			if(f != ar[kf-1])
+				console.log("Killed by the Guardian of the Pentagons boss with packet: " + parse(ar, kf-1));
+		}
+		if(kg && ar[kg-1] < 11){
+			if(f == -1)
+				f = ar[kg-1];
+			if(f != ar[kg-1])
+				console.log("Killed by the Summoner boss with packet: " + parse(ar, kg-1));
+		}
+		if(kh && ar[kh-1] < 11){
+			if(f == -1)
+				f = ar[kh-1];
+			if(f != ar[kh-1])
+				console.log("Killed by the Defender boss with packet: " + parse(ar, kh-1));
+		}
+		if(ki && ar[ki-1] < 11){
+			if(f == -1)
+				f = ar[ki-1];
+			if(f != ar[ki-1])
+				console.log("Killed by the Fallen Booster boss with packet: " + parse(ar, ki-1));
+		}
+		if(kj && ar[kj-1] < 11){
+			if(f == -1)
+				f = ar[kj-1];
+			if(f != ar[kj-1])
+				console.log("Killed by the Fallen Overlord boss with packet: " + parse(ar, kj-1));
+		}
 		if(dv.getUint8(0) == 0){
 			/*
 			for(var d = [], i = 0; i <= 8; i++){
