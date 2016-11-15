@@ -13,12 +13,6 @@ injectScript("("+(function() {
 	var _toString = window.Function.prototype.toString;
 
 
-	Function.prototype.toString = function(){
-	    if(this === Function.prototype.toString) return _toString.call(_toString);
-	    if(this === window.WebSocket.prototype.send) return _toString.call(proxiedSend);
-	    return _toString.call(this);
-	};
-
 
 	// Upgrades
 	var upgradeParams = [
