@@ -139,6 +139,7 @@ injectScript("("+(function() {
 		}
 		return s;
 	}
+	var hasGameStarted = false;
 	function handleSendData(data) {
 		// This function is called whenever a packet is sent from the client
 		// to the server.
@@ -259,6 +260,7 @@ injectScript("("+(function() {
 				var arr = data.slice(1, data.length - 1);
 				var name = decodeUTF8(arr);
 				console.log("Intercepted in-game name: " + name);
+				hasGameStarted = true;
 			}
 			/*
 			// Uncomment to dump all packets.
@@ -371,7 +373,7 @@ injectScript("("+(function() {
 				var b = dv.getUint8(2) * 128;
 				uptime = a + b;
 				//console.log(uptime)
-			}else{
+			} else {
 				// For FFA and Team DM
 				var a = dv.getUint8(1) - 128;
 				var b = (dv.getUint8(2) - 128) * 128;
@@ -392,6 +394,18 @@ injectScript("("+(function() {
 			console.log(dv.getUint16(2));
 			//console.log(String.fromCharCode.apply(null, new Uint8Array(event.data)));
 			*/
+			if(hasGameStarted){
+				if(dv.getUint8(0) == 2){
+					console.log("Received packet of size: " + event.data.byteLength + ", type: " + dv.getUint8(0));
+					console.log(String.fromCharCode.apply(null, new Uint8Array(event.data)));
+					str = "";
+					for(var i = 0; i < event.data.byteLength; i++){
+						str += dv.getUint8(i) + " ";
+						if(i > 0 && (i % 8 == 0)) str += "\n";
+					}
+					console.log(str);
+				}
+			}
 			/*
 			var dv = new DataView(event.data);
 			console.log("Server sent client ArrayBuffer of size: " + event.data.byteLength);
@@ -515,10 +529,10 @@ injectScript("("+(function() {
 					}
 					console.log(str);
 				}
-			}*//* else {
+			}*/ else {
 				var asStr = String.fromCharCode.apply(null, new Uint8Array(event.data));
-				if(asStr.toLowerCase().indexOf("mg") !== -1){
-					console.log("MG Packet of len " + event.data.byteLength + ", type " + base_type + ":");
+				if(asStr.toLowerCase().indexOf("firebolt") !== -1){
+					console.log("Spec. packet of len " + event.data.byteLength + ", type " + base_type + ":");
 					str = "";
 					for(var i = 0; i < event.data.byteLength; i++){
 						str += dv.getUint8(i) + " ";
@@ -526,7 +540,7 @@ injectScript("("+(function() {
 					}
 					console.log(str);
 				}
-			}*/
+			}
 			/*
 			for(var i = 0; i < 10; i++) str += dv.getUint16(2 + 2*i) + " ";
 			console.log(str);
