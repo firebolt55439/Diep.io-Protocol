@@ -33,62 +33,62 @@ injectScript("("+(function() {
 	 */
 	var tankParams = {
 		// Twin
-		70:"Twin",//
-		66:"Triple Shot",//
-		64:"Triplet",//
-		88:"Penta Shot",//
-		16:"Spread Shot",//
+		70:"Twin",
+		66:"Triple Shot",
+		64:"Triplet",
+		88:"Penta Shot",
+		16:"Spread Shot",
 
 		// Flank Guard
-		84:"Flank Guard",//
-		86:"Tri-Angle",//
-		106:"Booster",//
-		116:"Fighter",//
-		20:"Auto 5",//
-		22:"Auto 3",//
+		84:"Flank Guard",
+		86:"Tri-Angle",
+		106:"Booster",
+		116:"Fighter",
+		20:"Auto 5",
+		22:"Auto 3",
 
 		// Machine Gun
-		74:"Machine Gun",//
-		80:"Destroyer",//
-		38:"Annihilator",//
-		118:"Hybrid",//
-		108:"Gunner",//
-		126:"Sprayer",//
-		10:"Auto Gunner",//
-		40:"Skimmer",//
+		74:"Machine Gun",
+		80:"Destroyer",
+		38:"Annihilator",
+		118:"Hybrid",
+		108:"Gunner",
+		126:"Sprayer",
+		10:"Auto Gunner",
+		40:"Skimmer",
 
 		// Sniper
-		72:"Sniper",//
-		82:"Overseer",//
-		98:"Hunter",//
-		90:"Assassin",//
-		92:"Overlord",//
-		102:"Necromancer",//
-		110:"Stalker",//
-		104:"Ranger",//
-		112:"Manager",//
-		56:"X Hunter",
-		124:"Predator",//
-		122:"Trapper",//
-		4:"Gunner Trapper",//
-		6:"Overtrapper",//
-		0:"Mega Trapper",//
-		2:"Tri-Trapper",//
-		28:"Auto Trapper",//
-		36:"Battleship",//
-		44:"Factory",//
+		72:"Sniper",
+		82:"Overseer",
+		98:"Hunter",
+		90:"Assassin",
+		92:"Overlord",
+		102:"Necromancer",
+		110:"Stalker",
+		104:"Ranger",
+		112:"Manager",
+		//56:"X Hunter",
+		124:"Predator",
+		122:"Trapper",
+		4:"Gunner Trapper",
+		6:"Overtrapper",
+		0:"Mega Trapper",
+		2:"Tri-Trapper",
+		28:"Auto Trapper",
+		36:"Battleship",
+		44:"Factory",
 
 		// Twin/Flank Guard
-		76:"Quad Tank",//
-		94:"Twin Flank",//
-		78:"Octo Tank",//
-		96:"Triple Twin",//
+		76:"Quad Tank",
+		94:"Twin Flank",
+		78:"Octo Tank",
+		96:"Triple Twin",
 
 		// Smasher
-		12:"Smasher",//
-		32:"Auto Smasher",//
-		34:"Spike",//
-		8:"Landmine"//
+		12:"Smasher",
+		32:"Auto Smasher",
+		34:"Spike",
+		8:"Landmine"
 	};
 	
 	// Entities
