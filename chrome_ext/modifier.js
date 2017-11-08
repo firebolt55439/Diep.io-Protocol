@@ -26,58 +26,69 @@ injectScript("("+(function() {
 		"Movement Speed"
 	];
 
-	// Tanks
+	// Tanks 
+	/* PLEASE NOTE: it seams that now some tank id's have a +60 offset that wraps around at 128 back to 0, while the others have a -60 offset and wrap the other way around (compared to old id set)
+	 * if you divide all ids by 2, the ids which have an uneven id got a positive offset and that the ones with an even id got a negative offset
+	 * also there seem to be categories whose members are placed in certain id ranges
+	 */
 	var tankParams = {
 		// Twin
-		2:"Twin",
-		6:"Triple Shot",
-		4:"Triplet",
-		28:"Penta Shot",
+		70:"Twin",//
+		66:"Triple Shot",//
+		64:"Triplet",//
+		88:"Penta Shot",//
+		16:"Spread Shot",//
 
 		// Flank Guard
-		16:"Flank Guard",
-		18:"Tri-Angle",
-		46:"Booster",
-		48:"Fighter",
-		80:"Auto 5",
-		82:"Auto 3",
+		84:"Flank Guard",//
+		86:"Tri-Angle",//
+		106:"Booster",//
+		116:"Fighter",//
+		20:"Auto 5",//
+		22:"Auto 3",//
 
 		// Machine Gun
-		14:"Machine Gun",
-		20:"Destroyer",
-		50:"Hybrid",
-		40:"Gunner",
-		58:"Sprayer",
-		78:"Auto Gunner",
+		74:"Machine Gun",//
+		80:"Destroyer",//
+		38:"Annihilator",//
+		118:"Hybrid",//
+		108:"Gunner",//
+		126:"Sprayer",//
+		10:"Auto Gunner",//
+		40:"Skimmer",//
 
 		// Sniper
-		12:"Sniper",
-		22:"Overseer",
-		38:"Hunter",
-		30:"Assassin",
-		24:"Overlord",
-		34:"Necromancer",
-		42:"Stalker",
-		44:"Ranger",
-		52:"Manager",
+		72:"Sniper",//
+		82:"Overseer",//
+		98:"Hunter",//
+		90:"Assassin",//
+		92:"Overlord",//
+		102:"Necromancer",//
+		110:"Stalker",//
+		104:"Ranger",//
+		112:"Manager",//
 		56:"X Hunter",
-		60:"Predator",
-		62:"Trapper",
-		64:"Gunner Trapper",
-		66:"Overtrapper",
-		68:"Mega Trapper",
-		70:"Tri-Trapper",
+		124:"Predator",//
+		122:"Trapper",//
+		4:"Gunner Trapper",//
+		6:"Overtrapper",//
+		0:"Mega Trapper",//
+		2:"Tri-Trapper",//
+		28:"Auto Trapper",//
+		36:"Battleship",//
+		44:"Factory",//
 
 		// Twin/Flank Guard
-		8:"Quad Tank",
-		26:"Twin Flank",
-		10:"Octo Tank",
-		36:"Triple Twin",
+		76:"Quad Tank",//
+		94:"Twin Flank",//
+		78:"Octo Tank",//
+		96:"Triple Twin",//
 
 		// Smasher
-		72:"Smasher",
-		74:"Mega Smasher",
-		76:"Landmine"
+		12:"Smasher",//
+		32:"Auto Smasher",//
+		34:"Spike",//
+		8:"Landmine"//
 	};
 	
 	// Entities
